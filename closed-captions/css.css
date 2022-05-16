@@ -9,8 +9,9 @@ Feel free to adjust the defaults to your needs.
 :root{
 	--zwart: #000000;
 	--wit: #ffffff;
-	--alarmKleur: #bd1212;
-	--alarmKleurDonker: #957714;
+	--alarmKleur1: #620a0a;
+	--alarmKleur2: #861010;
+	--alarmKleur3: #ac1313;
 }
 
 body{
@@ -30,12 +31,15 @@ p {
 #closed-captions {
 	grid-column-start: 2;
 	grid-row-start: 3;
+	display: grid;
+	place-items: center center;
 }
 
 #closed-captions p {
 	opacity: 0;
 	transition: .05s;
 	position: absolute;
+	margin-top: -2em;
 }
 #closed-captions .on {
 	opacity: 1;
@@ -130,12 +134,12 @@ You probably want to change the styling.
 	transition: 0s 3.7s;
 }
 
-.p42 {
-	transform: translateX(103%);
+.p41 {
+	transform: translateX(-103%);
 }
 
 .p43 {
-	transform: translateX(206%);
+	transform: translateX(103%);
 }
 
 
@@ -167,6 +171,7 @@ Sounds.
 
 .sound0 #ruis {
 	animation-name: scaling;
+	z-index: 1000;
 	animation-duration: 4s;
 	animation-fill-mode: forwards;
 }
@@ -251,17 +256,17 @@ iframe {
 	transition: 1s;
 }
 
-@keyframes alarm {
+@keyframes alarm1 {
 	0% {
 		background-color: var(--zwart);
 	}
 
 	25% {
-		background-color: var(--alarmKleur);
+		background-color: var(--alarmKleur1);
 	}
 
 	50% {
-		background-color: var(--alarmKleurDonker);
+		background-color: var(--alarmKleur2);
 	}
 
 	100% {
@@ -270,6 +275,92 @@ iframe {
 }
 
 .sound1 {
-	animation-name: alarm;
+	animation-name: alarm1;
 	animation-duration: 2s;
+}
+
+@keyframes alarmFlicker {
+	0%, 25%, 50%, 75%, 100% {
+		opacity: 0;
+	}
+
+	12.5%, 37.5%, 62.5%, 87.5% {
+		opacity: 1;
+	}
+}
+
+.sound1::before{
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 27%;
+	width: 0; 
+	height: 0; 
+	border-top: 8em solid transparent;
+	border-bottom: 8em solid transparent;
+	border-left: 30em solid var(--alarmKleur3);
+	opacity: 0;
+	animation-name: alarmFlicker;
+	animation-duration: 2s;
+}
+
+.sound1::after{
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 27%;
+	width: 0; 
+	height: 0; 
+	border-top: 8em solid transparent;
+	border-bottom: 8em solid transparent;
+	border-right: 30em solid var(--alarmKleur3);
+	opacity: 0;
+	animation-name: alarmFlicker;
+	animation-duration: 2s;
+}
+
+@keyframes alarm2 {
+	0% {
+		background-color: var(--zwart);
+	}
+
+	25% {
+		background-color: var(--alarmKleur2);
+	}
+
+	90% {
+		background-color: var(--alarmKleur3);
+	}
+
+	100% {
+		background-color: var(--zwart);
+	}
+}
+
+.sound3 {
+	animation-name: alarm2;
+	animation-duration: 2s;
+}
+
+@keyframes alarm3 {
+	0% {
+		background-color: var(--zwart);
+	}
+
+	25% {
+		background-color: var(--alarmKleur1);
+	}
+
+	50% {
+		background-color: var(--alarmKleur2);
+	}
+
+	100% {
+		background-color: var(--zwart);
+	}
+}
+
+.sound6 {
+	animation-name: alarm3;
+	animation-duration: 1.6s;
 }
